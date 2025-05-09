@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.env
+venv/
+
+# Flask cache
+instance/
+*.db
+*.sqlite3
+
+# Logs
+*.log
+
+# Node (미래 프론트 분리 대비)
+node_modules/
+dist/
+build/
+
+# OS-specific
+.DS_Store
+Thumbs.db
