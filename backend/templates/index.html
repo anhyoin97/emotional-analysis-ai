@@ -21,10 +21,7 @@
       }
 
       main {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        gap: 40px;
+        display: block;
         max-width: 900px;
         margin: 40px auto;
         padding: 0 20px;
@@ -35,8 +32,7 @@
         border-radius: 12px;
         padding: 24px;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-        flex: 1 1 400px;
-        box-sizing: border-box;
+        margin-bottom: 40px;
       }
 
       textarea {
@@ -63,6 +59,45 @@
 
       button:hover {
         background-color: #005ea6;
+      }
+
+      .button-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 16px;
+        gap: 10px;
+      }
+
+      .button-left,
+      .button-right {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      #start-record {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 48px;
+        height: 48px;
+        padding: 0;
+      }
+
+      #stop-record {
+        width: 48px;
+        height: 48px;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #0078d7;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 1.2em;
       }
 
       .result-box {
@@ -119,10 +154,43 @@
         <h2>오늘의 감정일기 작성</h2>
         <form id="diary-form">
           <textarea
+            id="diary"
             name="diary"
             placeholder="오늘 하루를 솔직하게 적어보세요..."
           ></textarea>
-          <button type="submit">분석하기</button>
+
+          <div class="button-row">
+            <div class="button-left">
+              <button type="button" id="start-record" title="말하기 시작">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="white"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M12 14c1.66 0 3-1.34 3-3V5a3 3 0 10-6 0v6c0 1.66 1.34 3 3 3z"
+                  />
+                  <path
+                    d="M17.3 11c0 3.07-2.4 5.6-5.3 5.98V19h3v2H9v-2h3v-2.02A6.01 6.01 0 016.7 11H5a7 7 0 0014 0h-1.7z"
+                  />
+                </svg>
+              </button>
+
+              <!-- 이 부분 새로 구성 -->
+              <div style="display: flex; align-items: center; gap: 6px">
+                <button type="button" id="stop-record" style="display: none">
+                  ⛔
+                </button>
+                <span id="recording-status" style="color: #0078d7"></span>
+              </div>
+            </div>
+
+            <div class="button-right">
+              <button type="submit" id="analyze-button">분석하기</button>
+            </div>
+          </div>
         </form>
       </section>
 
@@ -154,15 +222,16 @@
 
       const resultDiv = document.getElementById("result");
       const form = document.getElementById("diary-form");
-      const button = form.querySelector("button");
+      
+      const analyzeButton = document.querySelector('#analyze-button');
 
       form.addEventListener("submit", async (e) => {
         e.preventDefault();
 
         // 로딩 표시
         resultDiv.innerHTML = `<p style="color: #0078D7;">🧠 감정 분석 중입니다...</p>`;
-        button.disabled = true;
-        button.textContent = "분석 중...";
+        analyzeButton.disabled = true;
+        analyzeButton.textContent = "분석 중...";
 
         const formData = new FormData(e.target);
         const res = await fetch("/analyze", {
@@ -170,8 +239,8 @@
           body: formData,
         });
 
-        button.disabled = false;
-        button.textContent = "분석하기";
+        analyzeButton.disabled = false;
+        analyzeButton.textContent = "분석하기";
 
         const data = await res.json();
 
@@ -218,6 +287,54 @@
         </div>
       </div>
     `;
+      });
+
+      const startBtn = document.getElementById("start-record");
+      const stopBtn = document.getElementById("stop-record");
+      const statusText = document.getElementById("recording-status");
+      const diary = document.getElementById("diary");
+      let recognition = null;
+
+      function setupRecognition() {
+        const recog = new webkitSpeechRecognition();
+        recog.lang = "ko-KR";
+        recog.interimResults = false;
+        recog.maxAlternatives = 1;
+
+        recog.onstart = () => {
+          statusText.textContent = "🎙️ 듣고 있어요...";
+          startBtn.style.display = "none";
+          stopBtn.style.display = "inline-block";
+        };
+
+        recog.onresult = (event) => {
+          const transcript = event.results[0][0].transcript;
+          diary.value += (diary.value ? " " : "") + transcript;
+        };
+
+        recog.onerror = (event) => {
+          statusText.textContent = "⚠️ 오류: " + event.error;
+        };
+
+        recog.onend = () => {
+          statusText.textContent = "";
+          startBtn.style.display = "inline-block";
+          stopBtn.style.display = "none";
+        };
+
+        return recog;
+      }
+
+      startBtn.addEventListener("click", () => {
+        recognition = setupRecognition();
+        recognition.start();
+      });
+
+      stopBtn.addEventListener("click", () => {
+        if (recognition) {
+          recognition.stop();
+          recognition = null;
+        }
       });
     </script>
   </body>
