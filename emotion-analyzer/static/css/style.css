@@ -1,0 +1,172 @@
+body {
+  margin: 0;
+  font-family: "맑은 고딕", sans-serif;
+  background-color: #f3f4f6;
+  color: #333;
+}
+
+body.danger-bg {
+  background-color: #fff4f4;
+  transition: background-color 0.3s ease;
+}
+
+body.danger-bg header {
+  background-color: #ffb3b3;
+}
+
+header {
+  background-color: #0078d7;
+  color: white;
+  padding: 20px 40px;
+  font-size: 1.5em;
+  font-weight: bold;
+  text-align: center;
+}
+
+main {
+  display: block;
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+section {
+  background-color: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  margin-bottom: 40px;
+}
+
+textarea {
+  width: 100%;
+  height: 140px;
+  box-sizing: border-box;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  padding: 12px;
+  font-size: 1em;
+  resize: none;
+}
+
+button {
+  margin-top: 16px;
+  padding: 12px 24px;
+  background-color: #0078d7;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1em;
+}
+
+button:hover {
+  background-color: #005ea6;
+}
+
+.button-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+  gap: 10px;
+}
+
+.button-left,
+.button-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#start-record {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+}
+
+#stop-record {
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #0078d7;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1.2em;
+}
+
+.result-box {
+  padding: 20px;
+  border-left: 6px solid #0078d7;
+  border-radius: 8px;
+  background-color: #fefefe;
+  transition: border-color 0.3s;
+}
+
+.result-item {
+  margin-bottom: 12px;
+  font-size: 1.05em;
+}
+
+.result-label {
+  font-weight: bold;
+}
+
+.encouragement {
+  margin-top: 20px;
+  background-color: #f0f8ff;
+  padding: 12px 16px;
+  border-radius: 8px;
+  border-left: 4px solid #00aaff;
+  font-style: italic;
+}
+
+.score-guide {
+  margin-top: 20px;
+  font-size: 0.9em;
+  color: #666;
+  line-height: 1.4;
+  background: #f7f7f7;
+  padding: 10px 14px;
+  border-radius: 8px;
+}
+
+footer {
+  text-align: center;
+  padding: 24px;
+  font-size: 0.9em;
+  color: #888;
+  border-top: 1px solid #ddd;
+  margin-top: 40px;
+}
+
+.comfort-card {
+  transition: all 0.3s ease;
+}
+.comfort-card:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.comfort-choice {
+  padding: 8px 14px;
+  background-color: #bbdefb; 
+  color: #003c8f;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.95em;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.comfort-choice:hover {
+  background-color: #64b5f6;
+}

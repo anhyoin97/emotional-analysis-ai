@@ -13,7 +13,7 @@ instance/
 # Logs
 *.log
 
-# Node (미래 프론트 분리 대비)
+# Node 
 node_modules/
 dist/
 build/
