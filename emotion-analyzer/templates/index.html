@@ -3,10 +3,21 @@
   <head>
     <meta charset="UTF-8" />
     <title>마음한줄, 말해줘서 고마워</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
   </head>
   <body>
-    <header>📝 마음한줄, 말해줘서 고마워</header>
+    <header>
+      <div class="header-container">
+        <div class="logo">📝 마음한줄, 말해줘서 고마워</div>
+        <nav class="menu">
+          <a href="{{ url_for('index') }}">일기 분석</a>
+          <a href="{{ url_for('face_voice') }}">표정 분석</a>
+        </nav>
+      </div>
+    </header>
 
     <main>
       <section>
@@ -62,7 +73,7 @@
       </section>
     </main>
 
-    <footer>© HYOIN AN | 2025 </footer>
+    <footer>© HYOIN AN | 2025</footer>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>

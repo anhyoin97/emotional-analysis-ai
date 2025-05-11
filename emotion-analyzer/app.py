@@ -9,6 +9,10 @@ app = Flask(__name__)
 def index():
     return render_template("index.html")
 
+@app.route('/face-voice')
+def face_voice():
+    return render_template("face-voice.html")
+
 # 라우터 등록
 app.register_blueprint(emotion_bp)
 app.register_blueprint(comfort_bp)

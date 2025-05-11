@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>마음한마디, 말해줘서 고마워</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/face-voice.css') }}"
+    />
+  </head>
+  <body>
+    <header>
+      <div class="header-container">
+        <div class="logo">📝 마음한마디, 말해줘서 고마워</div>
+        <nav class="menu">
+          <a href="{{ url_for('index') }}">일기 분석</a>
+          <a href="{{ url_for('face_voice') }}">표정 분석</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="face-voice-page">
+      <div class="card">
+        <div class="video-wrapper">
+          <video id="video" autoplay muted playsinline></video>
+          <canvas id="overlay"></canvas>
+        </div>
+
+        <div class="video-wrapper">
+          <video id="video" autoplay muted playsinline></video>
+          <canvas id="overlay"></canvas>
+          <div class="audio-controls">
+            <button id="start-record">🎙️ 시작</button>
+            <button id="stop-record" disabled>🛑 멈추기</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card result-card" id="result-card">
+        <h3>분석 결과</h3>
+        <p id="emotion-text">감정을 분석 중입니다...</p>
+      </div>
+    </main>
+
+    <footer>
+      <p>© HYOIN AN | 2025</p>
+    </footer>
+
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"
+    ></script>
+    <script src="{{ url_for('static', filename='js/faceVoice.js') }}"></script>
+  </body>
+</html>
