@@ -55,3 +55,40 @@ def ask_comfort_gpt(feeling: str):
         max_tokens=60
     )
     return response.choices[0].message.content.strip()
+
+def analyze_emotion_log(log: list):
+    """
+    감정 로그 배열을 받아서 현재 감정 흐름 요약 + 응원 멘트를 생성
+    """
+    emotion_sequence = [entry["emotion"] for entry in log]
+    
+    prompt = f"""
+    다음은 사용자의 감정 변화 로그입니다 (1초 단위 기록):
+
+    {emotion_sequence}
+
+    당신은 감정 분석 전문가입니다.
+    이 감정 흐름을 분석하여 현재 나의 감정 상태를 간단히 요약하고,
+    이 사람에게 따뜻한 위로나 응원의 한마디를 전해주세요. 문장은 반드시 한국어로 해주세요.
+    
+    💡 출력은 반드시 아래 형식의 JSON으로만 해주세요.
+
+    {{
+      "summary": "감정 흐름 요약",
+      "comfort": "사용자에게 따뜻한 위로나 응원 한마디 (짧고 진심을 담아)"
+    }}
+    """
+
+    response = client.chat.completions.create(
+        model="gpt-3.5-turbo",  
+        messages=[{"role": "user", "content": prompt}],
+        temperature=0.8,
+    )
+
+    text = response.choices[0].message.content
+    print("[감정 로그 응답]:\n", text)
+
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError:
+        raise Exception("응답 파싱 실패")

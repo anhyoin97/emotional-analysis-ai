@@ -126,6 +126,7 @@ window.onload = function () {
 
         startBtn.disabled = true;
         stopBtn.disabled = false;
+        
         startBtn.style.backgroundColor = "#ccc";
         stopBtn.style.backgroundColor = "#ff6666";
 
@@ -136,12 +137,45 @@ window.onload = function () {
     stopBtn.addEventListener("click", () => {
         isLogging = false;
 
-        startBtn.disabled = false;
-        stopBtn.disabled = true;
-        startBtn.style.backgroundColor = "";
-        stopBtn.style.backgroundColor = "";
+        startBtn.style.display = "none";
+        stopBtn.style.display = "none";
 
         stopVideo();  // 웹캠 종료 + 루프 중단
         renderEmotionChart(emotionLog);  // 그래프 출력
+        sendEmotionLogToGPT(emotionLog);
+
+        // 화면 전환
+        document.getElementById("face-wrapper").style.display = "none";
+        document.getElementById("result-card").style.display = "none";
+        document.getElementById("gpt-comment").style.display = "block";
     });
+
+    async function sendEmotionLogToGPT(log) {
+        const commentDiv = document.getElementById("gpt-comment");
+        commentDiv.textContent = "분석 중입니다... 잠시만 기다려주세요.";
+
+        try {
+            const res = await fetch("/generate-comment", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ log })
+            });
+
+            const data = await res.json();
+
+            if (data.summary && data.comfort) {
+                commentDiv.innerHTML = `
+                    <p><strong>🧠 분석 요약:</strong> ${data.summary}</p>
+                    <p><strong>💬 지금 당신에게 전하고 싶은 한마디 : </strong> ${data.comfort}</p>
+                `;
+            } else {
+                commentDiv.textContent = "응답 오류: " + (data.error || "결과를 받을 수 없습니다.");
+            }
+        } catch (err) {
+            commentDiv.textContent = "서버 통신 실패: " + err.message;
+        }
+    }
+
 };

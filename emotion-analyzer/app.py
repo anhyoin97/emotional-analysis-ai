@@ -1,6 +1,7 @@
 from flask import Flask, render_template
 from routes.emotion import emotion_bp
 from routes.comfort import comfort_bp
+from routes.comment import comment_bp
 
 app = Flask(__name__)
 
@@ -16,6 +17,7 @@ def face_voice():
 # 라우터 등록
 app.register_blueprint(emotion_bp)
 app.register_blueprint(comfort_bp)
+app.register_blueprint(comment_bp)
 
 if __name__ == "__main__":
     app.run(debug=True)

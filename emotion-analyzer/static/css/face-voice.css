@@ -87,6 +87,7 @@ main.face-voice-page {
 
 .analyze-controls {
   text-align: right;
+  margin-bottom:50px;
 }
 
 .result-card {
@@ -141,7 +142,8 @@ main.face-voice-page {
   margin: 0 auto;
 }
 
-#video, #overlay {
+#video,
+#overlay {
   width: 640px;
   height: 480px;
   display: block;
@@ -155,6 +157,20 @@ main.face-voice-page {
   pointer-events: none;
 }
 
+#gpt-comment {
+  display: none;
+  width: 640px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-left: 6px solid #007bff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  font-size: 16px;
+  line-height: 1.6;
+  color: #333;
+  transition: opacity 0.5s ease;
+}
 
 .face-voice-page .result-card {
   background-color: #fff;
@@ -175,4 +191,19 @@ main.face-voice-page {
 .face-voice-page .result-card p {
   font-size: 1.1rem;
   color: #555;
+}
+
+.gpt-comment-box {
+  margin-top: 20px;
+  padding: 15px 20px;
+  background-color: #f9f9f9;
+  border-left: 6px solid #007bff;
+  border-radius: 8px;
+  font-size: 16px;
+  color: #333;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  text-align:left;
 }

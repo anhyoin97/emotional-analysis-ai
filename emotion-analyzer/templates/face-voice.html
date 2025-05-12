@@ -26,9 +26,13 @@
 
     <main class="face-voice-page">
       <div class="card">
-        <div class="face-wrapper">
+        <div class="face-wrapper" id="face-wrapper">
           <video id="video" autoplay muted playsinline></video>
           <canvas id="overlay"></canvas>
+        </div>
+
+        <div id="gpt-comment" class="gpt-comment-box">
+          <!-- 코멘트 표시 -->
         </div>
 
         <div class="card result-card" id="result-card">
