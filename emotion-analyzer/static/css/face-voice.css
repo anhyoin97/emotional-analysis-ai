@@ -6,22 +6,30 @@ body {
 }
 
 header {
-  background-color: #007bff;
-  padding: 14px 24px;
+  background-color: #0078d7;
   color: white;
+  padding: 20px 40px;
+  font-size: 1.5em;
+  font-weight: bold;
+  text-align: center;
 }
 
 .header-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 960px;
-  margin: 0 auto;
 }
 
 .logo {
-  font-size: 1.3rem;
+  font-size: 20px;
   font-weight: bold;
+}
+
+.menu a {
+  color: white;
+  text-decoration: none;
+  margin-left: 20px;
+  font-size: 16px;
 }
 
 .menu a {
@@ -77,27 +85,8 @@ main.face-voice-page {
   pointer-events: none;
 }
 
-.audio-controls {
-  margin-top: 12px;
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-}
-
-.audio-controls button {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 10px 16px;
-  margin: 0 8px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.audio-controls button:hover {
-  background-color: #0056b3;
+.analyze-controls {
+  text-align: right;
 }
 
 .result-card {
@@ -146,14 +135,19 @@ main.face-voice-page {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-.face-voice-page video {
-  width: 100%;
-  max-width: 480px;
-  border-radius: 12px;
+.face-wrapper {
+  position: relative;
+  width: fit-content;
+  margin: 0 auto;
+}
+
+#video, #overlay {
+  width: 640px;
+  height: 480px;
   display: block;
 }
 
-.face-voice-page canvas {
+#overlay {
   position: absolute;
   top: 0;
   left: 0;
@@ -161,26 +155,6 @@ main.face-voice-page {
   pointer-events: none;
 }
 
-.face-voice-page .audio-controls {
-  margin-top: 12px;
-  text-align: center;
-}
-
-.face-voice-page .audio-controls button {
-  background-color: #007bff;
-  color: white;
-  padding: 10px 16px;
-  border: none;
-  border-radius: 8px;
-  font-size: 16px;
-  margin: 0 8px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.face-voice-page .audio-controls button:hover {
-  background-color: #0056b3;
-}
 
 .face-voice-page .result-card {
   background-color: #fff;
